@@ -1,0 +1,200 @@
+배낭 채우기 분기 한정 알고리즘.
+
+KnapsackBandB(N, Wt[0..N-1], Val[0..N-1], C){
+    // 입력: N - 물건들의 수
+             Wt[0..N-1] - 각 물건의 무게를 저장하는 배열
+             Val[0..N-1] - 각 물건의 가치를 저장하는 배열
+             C - 배낭의 용량
+    // 출력: 배낭에 넣을 수 있는 물건들의 최대 가치
+    initialize(PQ) // PQ를 빈 대기열로 초기화함.
+    maxValue = 0   // maxValue를 0으로 초기화함.
+    root.level = 0
+    root.weight = 0
+    root.value = 0
+    root.bound = computeBound(root) // 루트 노드의 한계값을 계산.
+    insert(PQ, root) // root를 PQ에 삽입함.
+    
+    whlie (not empty(PQ)) { // PQ가 비어있지 않으면 계속 반복한다.
+        v = remove(PQ)      // PQ에서 최대 한계값을 가진 노드 v를 끄집어낸다.
+        if (v.bound > maxValue){ // 노드 v가 유망하면 확장(자식 노드를 생성)한다.
+            u.level = v.level + 1 // 노드 u를 노드 v의 자식 노드로 만든다.
+            u.weight = v.weight + Wt[v.level] // u는 다음 물건은 넣는 경우.
+            u.value = v.value + Val[v.level];
+            if (u.weight <= C and u.value > maxValue){
+                maxValue = u.value // maxValue를 더 나은 해의 값으로 바꾼다.
+            }
+            u.bound = computeBound(u) // 자식 노드의 한계값을 계산함.
+            if (u.bound > maxValue){
+                insert(PQ, u) // u가 유망하므로 PQ에 삽입한다.
+            }
+            
+            w.level = v.level + 1 // 노드 w는 다음 물건을 넣지 않는 경우.
+            w.weight = v.weight
+            w.value = v.value
+            w.bound = computeBound(w) // 자식 노드의 한계값을 계산
+            if (w.bound > maxValue){
+                insert(PQ, w) // w가 유망하므로 PQ에 삽입
+            }
+        }
+        return maxValue
+    }
+}
+
+computeBound(u){ // 노드 u의 한계값을 계산하는 함수
+    // 입력 : u - 트리의 노드
+    // 출력 : u의 한계값
+    if (u.weight >= C) return 0
+    else if (u.level < N)
+        return u.value + (C - u.weight) * (Val[u.level]/Wt[u.level])
+    else return u.value
+}
+
+# 일 배정 문제
+- 비용 행렬의 각 행에서 한 요소를 선택하는 문제와 같음.
+- 선택된 요소들은 다른 열에 있어야 하고 총 배정 비용이 가장 작아야 한다.
+- 가능한 해는 n-짝(n-tuple) (j1,j2,...,jn)으로 나타낼 수 있다.
+ji, 1 <= i <= n, 는 사람 i에게 배정된 일의 번호.
+
+예)
+- 4명의 사람에게 배정할 4개의 일이 있다.
+- 비용 행렬 C는 아래와 같음.
+- <1, 3, 2, 4> : 사람 1에 일 1, 사람 2에 일 3, 사람 3에 일 2, 사람 4에 일 4의 배정을 의미.
+- 이 경우 총 비용 = 5 + 2 + 3 + 5 = 15
+
+       일1  일2  일3  일4
+사람 1  5    3    6    7 
+사람 2  4    6    2    5
+사람 3  6    3    5    4
+사람 4  9    6    8    5
+
+* 완전 탐색 알고리즘
+- 아이디어
+: 가능한 일 배정과 1부터 N사이의 정수들의 순열과 1 : 1 대응 관계가 있다는 사실을 이용.
+
+- 알고리즘
+: 1부터 N사이의 정수들의 모든 순열을 생성, 각 순열에 대앙하는 일 배정의 총 비용을 계산 후
+총 비용이 가장 작은 일 배정을 선택한다.
+
+- 시간 복잡도
+: 1부터 N사이의 정수들의 모든 순열의 수 = N! (> 2^N)
+: O(N!) = O(N^N)
+
+* 분기 한정 알고리즘
+- 상태 공간 트리 = N항 (N-ary) 트리
+- 해 : 루트 노드로부터 잎까지의 경로
+- 살아있는 노드 : 아직 가지 치치 않은 유망한 잎
+- 현재 트리의 살아있는 노드들 중 가장 유망한 노드의 모든 자식 노드들을 생성함.
+- 가장 유망한 노드 = 한계값이 가장 작은 노드
+- 최선 우선 탑색 사용
+
+* 노드의 한계값을 계산하는 방법
+- 비용 행렬의 각 행에서 가장 작은 요소들의 합을 한계값으로 사용한다.
+- 한계값 <= 어떤 유효한 배정의 비용
+- 아래 사례에서 한계값 = 3 + 2 + 3 + 5 - 13 => 이는 유효한 배정이 아님(이유 : 일 2를 사람 1과 사람 3에 동시에 배정했기 때문.)
+
+       일1  일2  일3  일4
+사람 1  5    (3)   6    7 
+사람 2  4    6    (2)   5
+사람 3  6    (3)   5    4
+사람 4  9    6     8   (5)
+하한값 : 13
+
+* 최선 우선 탐색 알고리즘 사용
+- 상태 공간 트리의 각 노드에 다음 값들을 저장한ㄷ.
+personNumber : 사람의 번호
+jobNumber : 일의 번호
+sumAssignedCost : 현재까지 배정된 일들의 비용들의 합
+bound : 한계값
+parent : 부모 노드
+assigned : 사람들에 일들의 배정 여부를 저장하는 배열
+- root : 루트 노드
+- chlid : 자식 노드
+- queue : 살아 있는 노드들을 포함하는 우선순위 대기열
+
+* 일 배정 분기 한정 알고리즘
+JobAssignmentBandB(N, C[0..N-1], 0..N-1){
+    // 입력: N-사람들(일들)의 수
+             C[0..N-1, 0..N-1] - 특정 사람에게 특정 일을 배정하는 비용 배열
+    // 출력: 일 배정 결과와 최소 배정 비용
+
+    // queue를 빈 대기열로 초기화함
+    initialize(queue)
+
+    // 루트 노드의 값들을 초기화함
+    root.personNumber = -1
+    root.jobNumber = -1
+    root.sumAssignedCost = 0
+    root.parent = null
+    for(i = 0; i < N, i++) root.assigned[i] = false
+
+    // 루트 노드의 한계값 계산
+    root.bound = computeBound(-1, -1, root.assigned)
+
+    // 루트 노드를 queue에 삽입
+    queue.insert(root)
+
+    // queue가 비어있지 않은 한 한계값이 최소인 살아있는 노드를 찾아서
+    // 그 노드의 자식 노드들을 queue에 추가
+    whlie(not queue.empty()){
+        // 최소 한계값을 가진 노드를 queue에서 끄집어 낸다.
+        minNode = queue.remove()
+        i = minNode.personNumber + 1 // i는 일을 배정할 다음 사람을 의미함.
+        if (i = N){
+            // 모든 사람들에게 일들이 배정된 결과를 출력함.
+            // 최소 배정 비용을 반환한다.
+        }
+        
+        // 사람 i에 배정 가능한 일을 배정하는 모든 자식 노드를 만들어 queue에 추가
+        for(j = 0; j < N; j++){
+            // 일 j가 배정되지 않았는지 확인함.
+            if (not minNode.assigned[j]){
+                // 배정되지 않았으면 배정함.
+                chlid.personNumber = i
+                chlid.jobNumber = j
+                for (k = 0; k < N; k++) { 
+                    chlid.assigned[k] = minNode.assigned[k]
+                    chlid.assigned[j] = true
+                    chlid.parent = minNode
+                    
+                    // 배정된 일들의 총 비용에 새로 배정된 일의 비용을 더한다.
+                    chlid.sumAssignedCost = minNode.sumAssignedCost + C[i][j]
+
+                    // 새 자식 노드의 한계값 계산
+                    chlid.bound = chlid.sumAssignedCost + computeBound(i, j, chlid.assigned)
+
+                    // 새 자식 노드를 queue에 추가
+                    queue.insert(chlid)
+                }
+            }
+        }
+    }
+    
+}
+
+computeBound(x, y, assigned){
+    // 입력: x - 방금 배정된 사람의 번호
+             y - 방금 배정된 일의 번호
+             assigned - 사람들에 일들의 배정 여부를 알려주는 배열
+    // 출력: 남은 사람들에게 남은 일들을 배정하는 데 드는 총 비용의 하한
+    bound = 0
+    for (i = x + 1; i < N; i++){
+        minCost = INF
+        minIndex = -1
+        for(j = 0; j < N; j++) { // 사람 i에 일을 배정하는 최소 비용을 찾음.
+            if (not.assigned[j] and (j!=y) and C[i][j] < minCost){
+                minIndex = j
+                minCost = C[i][j]
+            }
+        }
+        bound = bound + minCost // 다음 사람에게 배정 가능한 일의 최소 비용을 더한다.
+    }
+    return bound
+}
+
+# 분기 한정 요약
+- 되추적과 마찬가지로 상태 공간 트리를 이용하여 문제 해결
+- 분기 한정은 최적의 해에 더 빨리 도달하기 위해 최선 우선 탐색을 사용함.
+- 최선 우선 탐색은 한 유망한 노드의 모든 자식 노드들을 만든 후 남아 있는 유망하나
+확장되지 않은 노드들 중에서 가장 좋은 한계값을 가진 노드를 먼저 확장
+- 배낭 채우기 분기 한정 알고리즘
+- 일 배정 분기 한정 알고리즘.
