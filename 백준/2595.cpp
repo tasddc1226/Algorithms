@@ -1,9 +1,9 @@
 /*
     date : 2021.09.02
-	problom : 4545 
+	problom : 2595
 	title : 배수
     limit : 5 Sec
-    [ 백준 2595와 동일, 코드 이해 ]
+    [ 코드업 4545와 동일, 코드 이해 ]
 */
 
 #include <bitset>
