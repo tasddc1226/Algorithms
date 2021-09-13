@@ -2,6 +2,7 @@
  	date : 2021.09.08
     problom : 1011
 	title : Fly me to the Alpha Centauri
+    discribe : 거리에 따른 장치 사용 횟수를 출력해보자
  */
 #include<iostream>
 #include<cmath>

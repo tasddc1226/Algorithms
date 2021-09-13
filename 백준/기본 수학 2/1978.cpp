@@ -2,6 +2,7 @@
  	date : 2021.09.08
     problom : 1978
 	title : 소수 찾기
+    discribe : 2부터 X-1 까지 모두 나눠서 X가 소수인지 판별하는 문제 1
  */
 #include<iostream>
 using namespace std;

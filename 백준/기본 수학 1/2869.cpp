@@ -3,6 +3,7 @@
 	date : 2021.09.03
 	problom : 2869
 	title : 달팽이는 올라가고 싶다.
+    discribe : 달팽이의 움직임을 계산해보자
 */
 #include <iostream>
 using namespace std;

@@ -2,7 +2,7 @@
 # 	date : 2021.09.13
 # 	problom : 7568
 # 	title : 백준_덩치
-
+#   discribe : 모든 사람을 비교하여 덩치 등수를 헤아려보자
 
 n = int(input())
 

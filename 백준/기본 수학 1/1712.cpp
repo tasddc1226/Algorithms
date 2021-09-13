@@ -3,7 +3,7 @@
 	date : 2021.09.03
 	problom : 1712 
 	title : 손익 분기점
-	[ 틀린 풀 이 ]
+	discribe : 이익이 발생하는 지점을 찾아보자
 */
 #include <iostream>
 using namespace std;

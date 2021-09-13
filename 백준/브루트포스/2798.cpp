@@ -1,4 +1,9 @@
-// 블랙잭
+/*
+ 	date : 2021.09.13
+ 	problom : 2798
+ 	title : 백준_블랙잭
+    discribe : 세 장의 카드를 고르는 모든 경우의 수를 고려
+*/
 #include <iostream>
 #include <cstdlib>
 #include <vector>

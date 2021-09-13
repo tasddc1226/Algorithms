@@ -3,6 +3,7 @@
 	date : 2021.09.03
 	problom : 1929
 	title : 소 수 구 하 기 
+    discribe : 에라토스테네스의 체로 걸러보자
 */
 #include <iostream>
 #include <math.h>
