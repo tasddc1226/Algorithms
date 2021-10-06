@@ -15,34 +15,27 @@
 # 예시 출력
 # 15
 
-def cutTree(low, high, trees, m):
-    cut = 0
-    mid = (low + high) // 2
-    
-    for tree in trees:
-        # 나무 높이 i가 mid 값 보다 크다면
-        if (tree > mid):
-            # 나무를 자르고 자른 나무를 더해줌
-            cut = cut + (tree - mid)
-    # 자른 나무의 값이 M과 같다면
-    if (cut == m):
-        print(mid) # 자른 나무의 높이값 출력
-        return 0
-    elif (cut < m) :
-        # range : 0, mid-1
-        cutTree(low, mid-1, trees, m)
-    elif (cut > m):
-        # range : mid+1, r
-        cutTree(mid+1, high, trees, m)
-
-
-from sys import stdin
+import sys
+input = sys.stdin.readline
 # 나무의 수와 가지고가려는 나무의 길이 입력
-N, M = map(int, stdin.readline().split())
+N, M = map(int, input().split())
 # 나무들의 높이를 N개 만큼 입력
-tree_list = list(map(int, stdin.readline().split()))
-# 입력된 나무들의 높이의 최대값, 최소값 추출
-max_hight = max(tree_list)
-min_hight = min(tree_list)
+tree_list = list(map(int, input().split()))
+# 이분탐색 검색 범위 설정
+start, end = 0, max(tree_list)
 
-cutTree(min_hight, max_hight, tree_list, M)
+while(start <= end):
+    # 잘린 나무의 총 합
+    cut = 0
+    mid = (start + end) // 2
+    for i in tree_list:
+        # 한개의 나무 i가 mid보다 크면 잘림
+        if i > mid: 
+            cut += i - mid
+    
+    # 이분 탐색
+    if cut >= M:
+        start = mid + 1
+    else:
+        end = mid - 1
+print(end)
