@@ -15,12 +15,11 @@
 # 예시 출력
 # 15
 
-import sys
-input = sys.stdin.readline
+from sys import stdin
 # 나무의 수와 가지고가려는 나무의 길이 입력
-N, M = map(int, input().split())
+N, M = map(int, stdin.readline().split())
 # 나무들의 높이를 N개 만큼 입력
-tree_list = list(map(int, input().split()))
+tree_list = list(map(int, stdin.readline().split()))
 # 이분탐색 검색 범위 설정
 start, end = 0, max(tree_list)
 

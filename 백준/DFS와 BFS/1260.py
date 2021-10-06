@@ -53,7 +53,7 @@ for i in range(edge):
         graph[n2] = [n1]
     elif n1 not in graph[n2]:
         graph[n2].append(n1)
-    print(i, graph)
+    # print(i, graph)
 
 print(DFS(graph, start))
 
