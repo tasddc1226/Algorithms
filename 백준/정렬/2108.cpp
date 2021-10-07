@@ -22,7 +22,6 @@ int inputVector(int n){
         v.push_back(x);
         s += x;
     }
-    cout << "input OK\n";
     return s;
 }
 
@@ -34,15 +33,17 @@ int main() {
     
     int sum = inputVector(n);
     
-    // cout << "size: " << v.size() << "\n";
     sort(all(v));
-    
+    // 평균 계산
     mean = sum / v.size();
     cout << "mean: " << round(mean*10)/10 << "\n";
-
+    // 중위수 계산
     cout << "median: " << v[v.size() / 2] << "\n";
-
+    // 범위 계산
     range = *max_element(all(v)) - *min_element(all(v));
     cout << "range: " << abs(range) << "\n";
+    
+    // TODO : 최빈값 계산하기
+
 
 }
