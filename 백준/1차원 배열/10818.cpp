@@ -1,7 +1,7 @@
 /*
 	date : 2021.09.13
 	problom : 10818
-	title : 최대 최소
+	title : 최소, 최대
 	discribe : 최댓값과 최솟값을 찾는 문제
 */
 #include <iostream>
