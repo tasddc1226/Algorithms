@@ -1,5 +1,10 @@
 
-
+/*
+ 	date : 2021.11.25
+ 	problom : 2231
+ 	title : 분해합
+    discribe : 입력한 수의 가장 작은 분해합을 브루프포스 알고리즘을 이용해 찾아보자
+*/
 
 #include <iostream>
 #include <string>
