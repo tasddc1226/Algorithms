@@ -3,7 +3,7 @@
 # problom : 1946
 # title : 신입사원
 # discribe : 조건을 만족하면서 신입사원을 채용하는 최대 인원수를 구해보자
-
+# [ 시간 초과 ]
 
 from sys import stdin
 
