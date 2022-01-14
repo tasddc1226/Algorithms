@@ -1,15 +1,13 @@
 /*
- 	date : 2022.01.13
+ 	date : 2022.01.14
     problom : 5430
 	title : AC
-    [ Todo : 배열이 비어있는데 D연산을 수행한 경우 error 처리]
+    [ 시간 초과 ]
  */
-// Example program
 #include <iostream>
 #include <string>
 #include <algorithm>
 #include <vector>
-#include <sstream>
 
 using namespace std;
 
@@ -25,6 +23,9 @@ void printV(auto a){
 }
 int main()
 {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     int testcase;
     string func;
     string arr;
@@ -49,10 +50,17 @@ int main()
             if(func[j] == 'R'){
                 reverse(v.begin(), v.end());
             } else {
-                v.erase(v.begin());
+                if (!v.empty())
+                    v.erase(v.begin());
+                else
+                    break;
             }
         }
-        printV(v);
-        v.clear();
+        if (!v.empty()){   
+            printV(v);
+            v.clear();
+        } else {
+            cout << "error\n";
+        }
     }
 }
