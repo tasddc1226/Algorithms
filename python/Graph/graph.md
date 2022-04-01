@@ -91,4 +91,22 @@ def fact_recur(n):
     return n * fact_recur(n - 1)
 ```
 
+# DFS(Depth-First Search)
+- 깊이 우선 탐색 알고리즘
+- Stack 또는 재귀 함수 사용
+    - 동작 과정
+        1. 탐색 시작 노드를 Stack에 push후 방문 처리
+        2. Stack의 최상단 노드에서 방문하지 않은 노드가 하나라도 있으면 해당 노드를 Stack에 push후 방문 처리. 방문하지 않은 인접 노드가 없다면 Stack에서 pop
+        3. 더 이상 2번 과정을 수행할 수 없을 때까지 반복
+
+# BFS(Breadth-First- Search)
+- 너비 우선 탐색 알고리즘
+- 가까운 노드부터 우선적으로 탐색
+- Queue 자료구조 사용
+    - 동작 과정
+        1. 탐색 시작 노드를 큐에 append후 방문 처리
+        2. 큐에서 노드를 꺼낸 뒤, 해당 노드의 인접 노드 중 방문하지 않은 노드를 모두 큐에 append후 방문 처리
+        3. 더 이상 2번 과정을 수행할 수 없을 때까지 반복
+
+
 
