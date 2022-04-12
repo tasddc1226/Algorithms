@@ -87,3 +87,21 @@ reverse_result = sorted([9, 1, 3, 5, 2, 7], reverse=True) # 내림차순
 print(result) # [1, 2, 3, 5, 7, 9]
 print(reverse_result) # [9, 7, 5, 3, 2, 1]
 ```
+
+## 리스트 조작하기
+```py
+answer = [1,2,3,4,5,6,123] # stack
+
+print(answer[-1]) # 리스트에서 맨 마지막 값 가져오기
+```
+
+## 문자열 조작하기
+
+### 특정 문자열에서 문자 제거하기
+```py
+string = "Hey! What's up?"
+characters = "'!?"
+
+string = ''.join( x for x in string if x not in characters)
+print(string)
+```
